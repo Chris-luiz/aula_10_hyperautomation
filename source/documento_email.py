@@ -7,7 +7,7 @@ from pathlib import Path
 
 # Localiza o arquivo .env na pasta do projeto
 BASE_DIR = Path(__file__).resolve().parent
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR.parent / ".env")
 
 def criar_documento():
     documento = Document()
