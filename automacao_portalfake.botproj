@@ -1,0 +1,8 @@
+{
+  "name": "automacao_portalfake",
+  "sourceDirPath": "/source/",
+  "resourceDirPath": "/source/",
+  "sourceDirRelative": true,
+  "resourceDirRelative": true,
+  "botId": "automacao_portalfake"
+}
