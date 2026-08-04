@@ -7,10 +7,17 @@ import pickle
 import os
 import io
 
-# SCOPES = ["https://www.googleapis.com/auth/drive"]
-SCOPES = ['https://www.googleapis.com/auth/drive']
+# Precisamos de acesso ao Drive (ler/mover arquivos) e ao Sheets (criar/editar planilhas)
+SCOPES = [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/spreadsheets",
+]
 
-def conectar_drive():
+
+def autenticar():
+    """Faz o login OAuth (uma vez) e devolve as credenciais.
+    As credenciais ficam salvas em token.pickle para não pedir login toda hora.
+    """
 
     creds = None
 
@@ -18,22 +25,24 @@ def conectar_drive():
         with open("token.pickle", "rb") as token:
             creds = pickle.load(token)
 
-    if not creds or not creds.valid:
+    if not creds or not creds.valid or not set(SCOPES).issubset(set(creds.scopes or [])):
 
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
-
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 "client_secret.json",
                 SCOPES
             )
-
             creds = flow.run_local_server(port=0)
 
         with open("token.pickle", "wb") as token:
             pickle.dump(creds, token)
 
+    return creds
+
+
+def conectar_drive(creds):
     return build("drive", "v3", credentials=creds)
 
 
@@ -85,6 +94,7 @@ def baixar_arquivo(service, file_id, nome_arquivo, pasta_destino):
 
 
 def mover_arquivo(service, file_id, pasta_destino):
+    """Move qualquer arquivo do Drive (PDF, planilha, etc.) para outra pasta."""
 
     arquivo = service.files().get(
         fileId=file_id,
@@ -92,7 +102,7 @@ def mover_arquivo(service, file_id, pasta_destino):
     ).execute()
 
     pasta_atual = ",".join(
-        arquivo.get("parents")
+        arquivo.get("parents", [])
     )
 
     service.files().update(
