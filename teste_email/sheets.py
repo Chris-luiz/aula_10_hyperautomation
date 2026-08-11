@@ -20,7 +20,7 @@ def criar_planilha(service_sheets, titulo):
     return planilha["spreadsheetId"]
 
 
-def escrever_dados(service_sheets, planilha_id, dados, aba="Sheet1"):
+def escrever_dados(service_sheets, planilha_id, dados, aba="Página1"):
     """
     Preenche a planilha com os dados extraídos do PDF.
     'dados' é uma lista de dicts, cada um com as chaves Nome, CPF e Telefone.

@@ -11,7 +11,7 @@ PASTA_OK = "1bsTPbIwscXfwFdlk7Nf4_5CvtaOqsoXU"
 
 # Pasta para onde a planilha gerada é arquivada depois de preenchida
 # TODO: crie essa pasta no seu Google Drive e cole o ID dela aqui
-PASTA_ARQUIVO_PLANILHAS = "COLOQUE_AQUI_O_ID_DA_PASTA_DE_ARQUIVO"
+PASTA_ARQUIVO_PLANILHAS = "1KwoYyT0NMGsWus9wahqT5LlMDjriY_I0"
 
 # Pasta LOCAL (no seu computador) onde os PDFs baixados são salvos
 # (antes esse valor estava usando o ID do Drive por engano, o que não faz
